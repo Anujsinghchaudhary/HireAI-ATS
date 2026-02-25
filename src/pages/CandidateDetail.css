@@ -1,0 +1,296 @@
+.candidate-detail {
+    width: 100%;
+}
+
+.candidate-detail-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: var(--spacing-lg);
+    align-items: start;
+}
+
+/* Profile Panel */
+.candidate-profile {
+    position: sticky;
+    top: calc(var(--header-height) + var(--spacing-xl));
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-lg);
+}
+
+.profile-avatar-lg {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-full);
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.profile-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.profile-title {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.profile-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.profile-info-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.profile-info-item svg {
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+}
+
+/* Pipeline */
+.status-pipeline h4 {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.pipeline-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pipeline-step {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 0.5rem 0.75rem;
+    background: none;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+    text-transform: capitalize;
+}
+
+.pipeline-step:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+.pipeline-step.active {
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--accent-primary-light);
+}
+
+.pipeline-step.completed {
+    color: var(--color-success);
+}
+
+.pipeline-dot {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    background: var(--bg-input);
+    flex-shrink: 0;
+}
+
+.pipeline-step.active .pipeline-dot {
+    background: var(--accent-gradient);
+    color: white;
+}
+
+.pipeline-step.completed .pipeline-dot {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+/* Analysis Panel */
+.candidate-analysis {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.analysis-score-card .score-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xl);
+}
+
+.score-meta h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Collapsible Sections */
+.collapsible-section {
+    overflow: hidden;
+}
+
+.section-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 0;
+}
+
+.section-toggle h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+}
+
+.section-toggle svg:last-child {
+    color: var(--text-tertiary);
+}
+
+.section-content {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    animation: fadeIn 0.2s ease;
+}
+
+/* Skills */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.skill-tag {
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+}
+
+.skill-matched {
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--accent-primary-light);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.skill-missing {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.skill-extra {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+/* Analysis Groups */
+.analysis-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.analysis-group:last-child {
+    margin-bottom: 0;
+}
+
+.analysis-group-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.text-success {
+    color: var(--color-success);
+}
+
+.text-warning {
+    color: var(--color-warning);
+}
+
+.analysis-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.analysis-list li {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.analysis-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--text-tertiary);
+}
+
+.recommendations-list li::before {
+    content: '→';
+    color: var(--accent-primary-light);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .candidate-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .candidate-profile {
+        position: static;
+    }
+
+    .analysis-score-card .score-section {
+        flex-direction: column;
+        text-align: center;
+    }
+}
