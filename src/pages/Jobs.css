@@ -2,7 +2,6 @@
     width: 100%;
 }
 
-/* Filters */
 .jobs-filters {
     display: flex;
     gap: var(--spacing-md);
@@ -30,7 +29,6 @@
     width: 180px;
 }
 
-/* Job Cards */
 .job-card {
     display: flex;
     flex-direction: column;
@@ -127,7 +125,6 @@
     color: var(--text-tertiary);
 }
 
-/* Dropdown */
 .dropdown-wrapper {
     position: relative;
 }
@@ -168,7 +165,6 @@
     color: var(--color-danger) !important;
 }
 
-/* Form */
 .job-form {
     display: flex;
     flex-direction: column;

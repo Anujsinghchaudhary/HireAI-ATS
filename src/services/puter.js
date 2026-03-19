@@ -1,10 +1,5 @@
-// Puter.js Service Layer — Auth, AI, Storage, and KV Database
-
 import { RESUME_ANALYSIS_PROMPT, RESUME_PARSE_PROMPT, FEEDBACK_PROMPT } from './aiPrompts';
 
-// ========================
-// Helper: ensure puter is available
-// ========================
 const getPuter = () => {
     if (typeof window !== 'undefined' && window.puter) {
         return window.puter;
@@ -12,9 +7,6 @@ const getPuter = () => {
     return null;
 };
 
-// ========================
-// Authentication
-// ========================
 export const signIn = async () => {
     const puter = getPuter();
     if (!puter) throw new Error('Puter.js not loaded');
@@ -24,7 +16,6 @@ export const signIn = async () => {
 export const signOut = async () => {
     const puter = getPuter();
     if (!puter) return;
-    // Puter.js doesn't have a direct sign-out; we reload
     window.location.reload();
 };
 
@@ -45,9 +36,6 @@ export const isSignedIn = () => {
     return puter.auth?.isSignedIn?.() ?? false;
 };
 
-// ========================
-// AI — Resume Analysis
-// ========================
 export const analyzeResume = async (resumeText, jobDescription) => {
     const puter = getPuter();
     if (!puter) throw new Error('Puter.js not loaded');
@@ -119,9 +107,6 @@ export const generateFeedback = async (resumeText, jobDescription, matchScore) =
     }
 };
 
-// ========================
-// KV Database — Jobs
-// ========================
 const JOBS_KEY = 'ats_jobs';
 
 export const getJobs = async () => {
@@ -174,9 +159,6 @@ export const deleteJob = async (id) => {
     await saveJobs(filtered);
 };
 
-// ========================
-// KV Database — Candidates
-// ========================
 const CANDIDATES_KEY = 'ats_candidates';
 
 export const getCandidates = async () => {
@@ -228,9 +210,6 @@ export const deleteCandidate = async (id) => {
     await saveCandidates(filtered);
 };
 
-// ========================
-// Demo Data
-// ========================
 export const getDemoJobs = () => [
     {
         id: '1',

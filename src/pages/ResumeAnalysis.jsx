@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
+import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+import * as mammoth from 'mammoth/mammoth.browser';
 import {
     Upload, FileText, Sparkles, CheckCircle2,
     AlertTriangle, XCircle, Loader2, ChevronDown,
@@ -9,6 +12,8 @@ import {
 import ScoreGauge from '../components/ScoreGauge';
 import { getJobs, analyzeResume, addCandidate, parseResume, generateFeedback } from '../services/puter';
 import './ResumeAnalysis.css';
+
+GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 
 export default function ResumeAnalysis() {
     const [jobs, setJobs] = useState([]);
@@ -33,28 +38,64 @@ export default function ResumeAnalysis() {
         loadJobs();
     }, []);
 
-    const readFile = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = (e) => resolve(e.target.result);
-            reader.onerror = reject;
-            reader.readAsText(file);
-        });
+    const extractPdfText = async (file) => {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await getDocument({ data: arrayBuffer }).promise;
+        const pageTexts = [];
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+            const page = await pdf.getPage(pageNumber);
+            const textContent = await page.getTextContent();
+            const pageText = textContent.items
+                .map(item => ('str' in item ? item.str : ''))
+                .join(' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            if (pageText) {
+                pageTexts.push(pageText);
+            }
+        }
+
+        return pageTexts.join('\n\n');
+    };
+
+    const extractDocxText = async (file) => {
+        const arrayBuffer = await file.arrayBuffer();
+        const result = await mammoth.extractRawText({ arrayBuffer });
+        return result.value?.trim() || '';
+    };
+
+    const readResumeFile = async (file) => {
+        const extension = file.name.split('.').pop()?.toLowerCase();
+
+        if (file.type === 'application/pdf' || extension === 'pdf') {
+            return await extractPdfText(file);
+        }
+
+        if (
+            file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            || extension === 'docx'
+        ) {
+            return await extractDocxText(file);
+        }
+
+        return await file.text();
     };
 
     const handleFileSelect = async (file) => {
         if (!file) return;
-        const validTypes = ['text/plain', 'application/pdf', 'text/markdown',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
 
-        // Accept any text-readable file
         setFileName(file.name);
         try {
-            const content = await readFile(file);
+            const content = await readResumeFile(file);
+            if (!content.trim()) {
+                throw new Error('No readable text found in file');
+            }
             setResumeText(content);
             setError('');
         } catch (err) {
-            setError('Failed to read file. Please paste the resume text instead.');
+            setError('Failed to extract readable text from this file. Please upload a text-based PDF/DOCX or paste resume text.');
         }
     };
 
@@ -84,19 +125,16 @@ export default function ResumeAnalysis() {
         const jobDescription = `${job.title}\n\n${job.description}\n\nRequirements: ${job.requirements}`;
 
         try {
-            // Step 1: Parse resume
             setProgress(15);
             setProgressMessage('Parsing resume...');
             const parsed = await parseResume(resumeText);
             await new Promise(r => setTimeout(r, 500));
 
-            // Step 2: Analyze
             setProgress(45);
             setProgressMessage('Running AI analysis...');
             const analysis = await analyzeResume(resumeText, jobDescription);
             await new Promise(r => setTimeout(r, 300));
 
-            // Step 3: Generate feedback
             setProgress(75);
             setProgressMessage('Generating feedback...');
             const fb = await generateFeedback(resumeText, jobDescription, analysis.matchScore);
@@ -104,7 +142,6 @@ export default function ResumeAnalysis() {
             setProgress(90);
             setProgressMessage('Saving results...');
 
-            // Save candidate
             const candidateData = {
                 name: parsed?.name || 'Unknown Candidate',
                 email: parsed?.email || '',
@@ -150,11 +187,9 @@ export default function ResumeAnalysis() {
             </div>
 
             <div className="analysis-layout">
-                {/* Upload Section */}
                 <div className="upload-section glass-card">
                     <h3><Upload size={18} /> Upload Resume</h3>
 
-                    {/* Drop Zone */}
                     <div
                         className={`drop-zone ${dragOver ? 'drag-over' : ''} ${fileName ? 'has-file' : ''}`}
                         onDragOver={e => { e.preventDefault(); setDragOver(true); }}
@@ -184,7 +219,6 @@ export default function ResumeAnalysis() {
                         )}
                     </div>
 
-                    {/* OR paste */}
                     <div className="paste-divider">
                         <span>OR</span>
                     </div>
@@ -200,7 +234,6 @@ export default function ResumeAnalysis() {
                         />
                     </div>
 
-                    {/* Job Selection */}
                     <div className="form-group">
                         <label className="form-label">Match Against Job *</label>
                         <select
@@ -239,7 +272,6 @@ export default function ResumeAnalysis() {
                         )}
                     </button>
 
-                    {/* Progress Bar */}
                     {analyzing && (
                         <div className="progress-section">
                             <div className="progress-bar-bg">
@@ -253,7 +285,6 @@ export default function ResumeAnalysis() {
                     )}
                 </div>
 
-                {/* Results Section */}
                 <div className="results-section">
                     {!results && !analyzing && (
                         <div className="results-placeholder glass-card">
@@ -273,7 +304,6 @@ export default function ResumeAnalysis() {
 
                     {results && (
                         <div className="results-content stagger-children">
-                            {/* Score Card */}
                             <div className="glass-card results-score-card">
                                 <div className="results-score-layout">
                                     <ScoreGauge score={results.matchScore || 0} size={160} />
@@ -298,7 +328,6 @@ export default function ResumeAnalysis() {
                                 </div>
                             </div>
 
-                            {/* Skills Breakdown */}
                             <div className="glass-card">
                                 <h3 className="result-section-title"><Target size={18} /> Skills Analysis</h3>
                                 {results.skills?.matched?.length > 0 && (
@@ -339,7 +368,6 @@ export default function ResumeAnalysis() {
                                 )}
                             </div>
 
-                            {/* Strengths & Concerns */}
                             <div className="glass-card">
                                 <h3 className="result-section-title"><MessageSquare size={18} /> Assessment</h3>
                                 <div className="assessment-grid">
@@ -362,7 +390,6 @@ export default function ResumeAnalysis() {
                                 </div>
                             </div>
 
-                            {/* Interview Questions */}
                             {results.interviewQuestions?.length > 0 && (
                                 <div className="glass-card">
                                     <h3 className="result-section-title"><BookOpen size={18} /> Suggested Interview Questions</h3>
@@ -374,7 +401,6 @@ export default function ResumeAnalysis() {
                                 </div>
                             )}
 
-                            {/* Feedback */}
                             {feedback && (
                                 <div className="glass-card feedback-card">
                                     <h3 className="result-section-title"><Sparkles size={18} /> Candidate Feedback</h3>
@@ -398,7 +424,6 @@ export default function ResumeAnalysis() {
                                 </div>
                             )}
 
-                            {/* Actions */}
                             <div className="results-actions">
                                 <button className="btn btn-primary" onClick={() => navigate('/candidates')}>
                                     View Candidates <ArrowRight size={16} />

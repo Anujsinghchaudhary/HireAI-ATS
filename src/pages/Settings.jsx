@@ -46,7 +46,6 @@ export default function Settings() {
             </div>
 
             <div className="settings-layout">
-                {/* Tabs */}
                 <div className="settings-tabs glass-card">
                     {tabs.map(({ id, icon: Icon, label }) => (
                         <button
@@ -59,7 +58,6 @@ export default function Settings() {
                     ))}
                 </div>
 
-                {/* Content */}
                 <div className="settings-content glass-card">
                     {activeTab === 'profile' && (
                         <div className="settings-section animate-fade-in">

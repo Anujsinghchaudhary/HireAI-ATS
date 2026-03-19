@@ -23,7 +23,6 @@ export default function Layout() {
                 </div>
             </main>
 
-            {/* Mobile overlay */}
             {mobileMenuOpen && (
                 <div
                     className="mobile-overlay"

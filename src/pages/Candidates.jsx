@@ -76,7 +76,6 @@ export default function Candidates() {
                 </div>
             </div>
 
-            {/* Filters */}
             <div className="candidates-filters glass-card">
                 <div className="filter-search">
                     <Search size={16} className="filter-search-icon" />
@@ -109,7 +108,6 @@ export default function Candidates() {
                 </select>
             </div>
 
-            {/* Candidates Table */}
             <div className="glass-card candidates-table-wrapper">
                 <table className="data-table">
                     <thead>

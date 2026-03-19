@@ -31,7 +31,6 @@ export default function ScoreGauge({ score = 0, size = 140, label = 'Match Score
     return (
         <div className="score-gauge">
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-                {/* Background circle */}
                 <circle
                     cx={size / 2}
                     cy={size / 2}
@@ -40,7 +39,6 @@ export default function ScoreGauge({ score = 0, size = 140, label = 'Match Score
                     stroke="rgba(99, 102, 241, 0.1)"
                     strokeWidth="10"
                 />
-                {/* Score arc */}
                 <circle
                     cx={size / 2}
                     cy={size / 2}
@@ -57,7 +55,6 @@ export default function ScoreGauge({ score = 0, size = 140, label = 'Match Score
                         filter: `drop-shadow(0 0 6px ${color}40)`
                     }}
                 />
-                {/* Score text */}
                 <text
                     x={size / 2}
                     y={size / 2 - 8}

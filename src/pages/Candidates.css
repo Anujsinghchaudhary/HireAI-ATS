@@ -65,7 +65,6 @@
     color: var(--text-tertiary);
 }
 
-/* Score Bars */
 .score-cell {
     display: flex;
     align-items: center;

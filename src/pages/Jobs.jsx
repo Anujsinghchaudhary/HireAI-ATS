@@ -97,7 +97,6 @@ export default function Jobs() {
                 </button>
             </div>
 
-            {/* Filters */}
             <div className="jobs-filters glass-card">
                 <div className="filter-search">
                     <Search size={16} className="filter-search-icon" />
@@ -130,7 +129,6 @@ export default function Jobs() {
                 </select>
             </div>
 
-            {/* Job Cards */}
             <div className="cards-grid">
                 {filteredJobs.map(job => (
                     <div key={job.id} className="job-card glass-card">
@@ -200,7 +198,6 @@ export default function Jobs() {
                 </div>
             )}
 
-            {/* Create/Edit Modal */}
             <Modal
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}

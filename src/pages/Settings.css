@@ -9,7 +9,6 @@
     align-items: start;
 }
 
-/* Tabs */
 .settings-tabs {
     position: sticky;
     top: calc(var(--header-height) + var(--spacing-xl));
@@ -44,7 +43,6 @@
     color: var(--accent-primary-light);
 }
 
-/* Content */
 .settings-content {
     min-height: 500px;
 }
@@ -69,7 +67,6 @@
     border-top: 1px solid var(--border-color);
 }
 
-/* Toggle */
 .toggle-option {
     display: flex;
     align-items: center;
@@ -142,7 +139,6 @@
     background: white;
 }
 
-/* Theme Selector */
 .theme-selector {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -178,7 +174,6 @@
     font-weight: 600;
 }
 
-/* Data Options */
 .data-option {
     display: flex;
     align-items: center;
@@ -199,7 +194,6 @@
     border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .settings-layout {
         grid-template-columns: 1fr;

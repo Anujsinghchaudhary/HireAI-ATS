@@ -90,7 +90,6 @@ export default function Dashboard() {
                 </button>
             </div>
 
-            {/* Stats Grid */}
             <div className="stats-grid stagger-children">
                 <StatCard
                     icon={Briefcase}
@@ -126,7 +125,6 @@ export default function Dashboard() {
                 />
             </div>
 
-            {/* Charts Row */}
             <div className="two-col-grid">
                 <div className="glass-card chart-card">
                     <div className="chart-header">
@@ -201,9 +199,7 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            {/* Bottom Row */}
             <div className="two-col-grid mt-lg">
-                {/* Recent Activity */}
                 <div className="glass-card">
                     <div className="chart-header">
                         <h3>Recent Activity</h3>
@@ -224,7 +220,6 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                {/* Top Candidates */}
                 <div className="glass-card">
                     <div className="chart-header">
                         <h3>Top Candidates</h3>

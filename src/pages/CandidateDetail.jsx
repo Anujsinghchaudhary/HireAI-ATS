@@ -68,7 +68,6 @@ export default function CandidateDetail() {
             </button>
 
             <div className="candidate-detail-grid">
-                {/* Left Panel — Profile */}
                 <div className="candidate-profile glass-card">
                     <div className="profile-header">
                         <div className="profile-avatar-lg">
@@ -100,7 +99,6 @@ export default function CandidateDetail() {
                         </div>
                     </div>
 
-                    {/* Status Pipeline */}
                     <div className="status-pipeline">
                         <h4>Pipeline Status</h4>
                         <div className="pipeline-steps">
@@ -134,9 +132,7 @@ export default function CandidateDetail() {
                     </div>
                 </div>
 
-                {/* Right Panel — Analysis */}
                 <div className="candidate-analysis">
-                    {/* Score */}
                     <div className="glass-card analysis-score-card">
                         <div className="score-section">
                             <ScoreGauge score={candidate.matchScore || 0} size={150} />
@@ -149,7 +145,6 @@ export default function CandidateDetail() {
                         </div>
                     </div>
 
-                    {/* Skills */}
                     <div className="glass-card collapsible-section">
                         <button className="section-toggle" onClick={() => toggleSection('skills')}>
                             <h3><Star size={18} /> Skills & Expertise</h3>
@@ -166,7 +161,6 @@ export default function CandidateDetail() {
                         )}
                     </div>
 
-                    {/* AI Analysis */}
                     <div className="glass-card collapsible-section">
                         <button className="section-toggle" onClick={() => toggleSection('analysis')}>
                             <h3><MessageSquare size={18} /> AI Analysis</h3>
@@ -199,7 +193,6 @@ export default function CandidateDetail() {
                         )}
                     </div>
 
-                    {/* Recommendations */}
                     <div className="glass-card collapsible-section">
                         <button className="section-toggle" onClick={() => toggleSection('recommendations')}>
                             <h3><Lightbulb size={18} /> Recommendations</h3>

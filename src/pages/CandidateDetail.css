@@ -9,7 +9,6 @@
     align-items: start;
 }
 
-/* Profile Panel */
 .candidate-profile {
     position: sticky;
     top: calc(var(--header-height) + var(--spacing-xl));
@@ -72,7 +71,6 @@
     flex-shrink: 0;
 }
 
-/* Pipeline */
 .status-pipeline h4 {
     font-size: var(--font-size-sm);
     font-weight: 600;
@@ -138,7 +136,6 @@
     color: var(--color-success);
 }
 
-/* Analysis Panel */
 .candidate-analysis {
     display: flex;
     flex-direction: column;
@@ -157,7 +154,6 @@
     margin-bottom: var(--spacing-xs);
 }
 
-/* Collapsible Sections */
 .collapsible-section {
     overflow: hidden;
 }
@@ -193,7 +189,6 @@
     animation: fadeIn 0.2s ease;
 }
 
-/* Skills */
 .skills-grid {
     display: flex;
     flex-wrap: wrap;
@@ -225,7 +220,6 @@
     border: 1px solid rgba(34, 197, 94, 0.2);
 }
 
-/* Analysis Groups */
 .analysis-group {
     margin-bottom: var(--spacing-md);
 }
@@ -279,7 +273,6 @@
     color: var(--accent-primary-light);
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
     .candidate-detail-grid {
         grid-template-columns: 1fr;
